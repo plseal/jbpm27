@@ -1,2 +1,2 @@
-# jbpm27
-workflow with jbpm4.4
+# ssm_project
+tomcat maven springMVC hibernate mysql JBPM4.4 POI 
