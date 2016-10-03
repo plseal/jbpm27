@@ -3,7 +3,7 @@
 <html >
 	<head>
 		<meta charset="utf-8" />
-		<title>安全隐患排查治理信息化平台1</title>
+		<title>安全隐患排查治理信息化平台</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/icon.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
