@@ -606,7 +606,7 @@ public class RectiCheckXiashuController
 	    String strModelFileOfRealServerPath = 
 	    		request.getRealPath("/") + "modelfile\\recticheckXiashu.docx";
 	    String strOutPutRealServerPath = 
-	    		request.getRealPath("/") + "modelfileoutput\\"+entity.getJavaid()+"check.docx";
+	    		request.getRealPath("/") + "modelfileoutput\\"+entity.getJavaid()+"checkXiashu.docx";
 	
 	    
 	    CustomXWPFDocument doc = WordUtil.generateWord(param, strModelFileOfRealServerPath);

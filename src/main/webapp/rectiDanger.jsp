@@ -207,6 +207,7 @@ style='font-size:22.0pt;font-family:方正小标宋简体'>危险作业审批单
       
   %>
   ${danwei}
+  <input type="hidden" id="danwei_view" value="${danwei}" class="rectimyinput" style="width:110px;" maxlength=12>
   <input type="hidden" name="danwei" value="${danwei}" class="rectimyinput" style="width:110px;" maxlength=12>
   <%  
   }
@@ -458,8 +459,7 @@ style='font-size:22.0pt;font-family:方正小标宋简体'>危险作业审批单
   }
   %>
   <br><br>
-  <span style='font-size:12.0pt;font-family:宋体;margin-top:100px; text-align:left;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <span style='font-size:12.0pt;font-family:宋体;margin-top:100px; text-align:left;'><br/>
   负责人（签字）：
   <b><span lang=EN-US style="color:#0000CD;text-align:right;"><span
   style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -492,10 +492,7 @@ style='font-size:22.0pt;font-family:方正小标宋简体'>危险作业审批单
   }
   %>
   <br>
-  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt;margin-top:10px; text-align:left;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;
+  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt;margin-top:10px; text-align:left;'><br/>
   </span><span style='font-size:12.0pt;font-family:宋体;'>分管领导（签字）：
   
     <b><span lang=EN-US style="color:#0000CD;text-align:right;"><span
