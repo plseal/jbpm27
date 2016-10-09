@@ -315,7 +315,17 @@
 							</a>
 						</li>
 <%
-if (session.getAttribute("role").equals("admin")) {
+if (session.getAttribute("role").toString().contains("safetyofficer")) {
+
+%>
+
+
+						
+
+						
+
+<%
+} else if (session.getAttribute("role").toString().contains("admin")) {
 
 %>
 						<li>
@@ -324,26 +334,31 @@ if (session.getAttribute("role").equals("admin")) {
 								<span class="menu-text"> 系统管理 </span>
 							</a>
 						</li>
-
+<!-- 
 						<li>
 							<a href="javascript:goto_('${pageContext.request.contextPath}/admin/to_userAdminJSP.do');">
 								
 								<span class="menu-text"> 用户管理 </span>
 							</a>
 						</li>
-						
+ -->
                         <li>
                             <a href="javascript:goto_('${pageContext.request.contextPath}/listNGnames.jsp');">
                                 
                                 <span class="menu-text"> 姓名重复人员一览 </span>
                             </a>
                         </li>
-						
-
+                        <li>
+                            <a href="javascript:goto_('${pageContext.request.contextPath}/about.jsp');">
+                                
+                                <span class="menu-text"> 系统信息 </span>
+                            </a>
+                        </li>
 <%
-}
+} 
 
 %>
+					
 					</ul><!-- /.nav-list -->
 
 					<div class="sidebar-collapse" id="sidebar-collapse">

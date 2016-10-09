@@ -218,7 +218,7 @@ style='font-size:22.0pt;font-family:方正小标宋简体'>危险作业审批单
   <td width=120 style='width:90.0pt;border:solid windowtext 1.0pt;border-left:
   none;padding:0cm 5.4pt 0cm 5.4pt;' nowrap>
   <p class=MsoNormal align=center style='text-align:center'><span
-  style='font-size:12.0pt;font-family:宋体'>申请负责人</span></p>
+  style='font-size:12.0pt;font-family:宋体'>申请人</span></p>
   </td>
   <td width=181 style='width:135.75pt;border:solid windowtext 1.0pt;border-left:
   none;padding:0cm 5.4pt 0cm 5.4pt;'>
