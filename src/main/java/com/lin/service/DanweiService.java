@@ -20,6 +20,10 @@ public class DanweiService
 	}
 
 	
+	public List<DanweiEntity> getPdfURL()
+	{
+		return danweiDao.getPdfURL();
+	}
 	public List<DanweiEntity> getAll()
 	{
 		return danweiDao.getAll();
@@ -36,6 +40,11 @@ public class DanweiService
 	{
 		return danweiDao.getFullNameByOrderId(rid);
 	}
+	public void updatePdfURL(DanweiEntity entity)
+	{
+		danweiDao.updatePdfURL(entity);
+	}	
+	
 	
 	
 }

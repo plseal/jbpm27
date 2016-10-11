@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lin.entity.DanweiEntity;
 import com.lin.entity.RectiNewEntity;
+import com.lin.service.DanweiService;
 import com.lin.service.RectiNewService;
 @Controller
 @RequestMapping("uploadFile")
@@ -24,9 +28,51 @@ public class uploadFileController
 	@Resource(name="rectiNewService")
 	private RectiNewService rectiNewService;//业务逻辑
 	
+	@Resource(name="danweiService")
+	private DanweiService danweiService;
+	
 	public uploadFileController()
 	{
 	}
+	@RequestMapping("uploadZuZhiTuFile")
+	public String uploadZuZhiTuFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
+		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][start]1");
+		if (fileObj != null){
+			if (fileObj.getSize() == 0) {
+				return "addFileFailed";
+			}
+			
+			logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][SaveFile---strFile.Size]:"+fileObj.getSize());
+			logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][zuzhitu_beSelected_danwei]:"+request.getParameter("zuzhitu_beSelected_danwei"));
+			
+			String strTruePath = "";
+			
+			//上传到组织图用文件夹
+			strTruePath = (new StringBuilder(String.valueOf(request.getRealPath("/")))).append("zuzhitu/xianju/").toString();
+			//更新数据库
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			String todayyyyMMddHHmmss = df.format(date);
+			String filename = todayyyyMMddHHmmss + ".pdf";
+			DanweiEntity entity = new DanweiEntity();
+			entity.setPdfurl(filename);
+			entity.setOrgchartname(request.getParameter("zuzhitu_beSelected_danwei"));
+			danweiService.updatePdfURL(entity);
+						
+			
+			logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][SaveFile---strTruePath]:"+strTruePath);
+			//System.out.println((new StringBuilder("SaveFile---:")).append(strTruePath).toString());
+			
+			logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][SaveFile---strFile.Name]:"+filename);
+			SaveFileFromInputStream(fileObj.getInputStream(), strTruePath, filename);
+			request.setAttribute("UPLOADED_FILE_NAME", filename);
+		}
+		
+		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][goto][zuzhitu/shiju/indexS3.jsp]");
+		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][end]");
+		return "zuzhitu/shiju/indexS3";
+	}
+	
 	@RequestMapping("saveuploadFile")
 	public String saveuploadFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
 		logger.info("["+this.getClass().getName()+"][saveuploadFile][start]");
@@ -47,6 +93,7 @@ public class uploadFileController
 		logger.info("["+this.getClass().getName()+"][saveuploadFile][end]");
 		return "addFileSuccess";
 	}
+	
 	@RequestMapping("deleteUploadFile")
 	public String deleteUploadFile(String strFile, HttpServletRequest request) throws Exception {
 		logger.info("["+this.getClass().getName()+"][deleteUploadFile][start]");

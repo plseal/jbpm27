@@ -66,6 +66,20 @@ public class AdminController extends HttpServlet{
 	{
 	}
 
+	@RequestMapping("to_shiju")
+	public String to_shiju(HttpServletRequest request){
+		logger.info("["+this.getClass().getName()+"][to_shiju][start]");
+		
+		List<DanweiEntity> listPdfURL = danweiService.getPdfURL();
+		for(int i=0;i<listPdfURL.size();i++){
+			logger.info("["+this.getClass().getName()+"][to_shiju]["+"URL"+listPdfURL.get(i).getOrderbyzuzhitu()+"]"+listPdfURL.get(i).getPdfurl()+listPdfURL.get(i).getId());
+			request.setAttribute("URL"+listPdfURL.get(i).getOrderbyzuzhitu(), listPdfURL.get(i).getPdfurl());;
+		}
+		logger.info("["+this.getClass().getName()+"][to_shiju][end]--goto[zuzhitu/shiju/index.jsp]");
+		return "zuzhitu/shiju/index";
+	}
+	
+	
 	@RequestMapping("deployZIP")
 	public String deployZIP(MultipartFile file){
 		logger.info("["+this.getClass().getName()+"][deployZIP][start]");

@@ -27,6 +27,21 @@ public class DanweiDao
 	{
 	}
 
+	public List<DanweiEntity> getPdfURL(){
+		logger.info("["+this.getClass().getName()+"][getPdfURL][start]");
+		String sql =  "SELECT id,name,pdfurl,orderbyzuzhitu  FROM t_danwei order by orderbyzuzhitu";
+		logger.info("["+this.getClass().getName()+"][getPdfURL][SQL]"+sql);
+		List<DanweiEntity>  list = namedParameterJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(DanweiEntity.class));
+		logger.info("["+this.getClass().getName()+"][getPdfURL][end]");
+		return list;
+	}
+	public void updatePdfURL(DanweiEntity entity ){
+		logger.info("["+this.getClass().getName()+"][updatePdfURL][start]");
+		String sql =  "UPDATE t_danwei set pdfurl = '" + entity.getPdfurl() + "' where orgchartname = '" + entity.getOrgchartname() + "'" ;
+		logger.info("["+this.getClass().getName()+"][updatePdfURL][SQL]"+sql);
+		namedParameterJdbcTemplate.getJdbcOperations().update(sql);
+		logger.info("["+this.getClass().getName()+"][updatePdfURL][end]");
+	}
 
 	public List<DanweiEntity> getAll(){
 		logger.info("["+this.getClass().getName()+"][getAll][start]");

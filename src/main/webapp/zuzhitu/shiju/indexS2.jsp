@@ -1,37 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- release v4.3.5, copyright 2014 - 2016 Kartik Visweswaran -->
-<html lang="en">
+
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Krajee JQuery Plugins - &copy; Kartik</title>
+	<!-- 栅格系统，移动设备优先 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/buttons.css" rel="stylesheet">
         <script src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
-        <link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
         <script src="${pageContext.request.contextPath}/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
-        
         <link href="${pageContext.request.contextPath}/bootstrap-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
         <script src="${pageContext.request.contextPath}/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/bootstrap-fileinput/js/locales/zh.js" type="text/javascript"></script>
         
+<title>
+indexS2.jsp 
+</title>
     </head>
-    <body>
+    <body class="pageView" bgcolor="#FFFFFF" style="margin: 0px">
+    <!-- bootstrap 栅格容器 -->
+<div class="container">
+	<!-- bootstrap 栅格容器  row start-->
+	<div class="row">
+		第二步：上传PDF文件
+		<div class="progress">
+		    <div class="progress-bar" role="progressbar" aria-valuenow="60" 
+		        aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+		        <span class="sr-only">66% 完成</span>
+		    </div>
+		</div>
+	</div>
+	<div class="col-md-3">
+	<%=request.getParameter("zuzhitu_danwei").toString() %>
+	
+	<input type = "hidden" id = "zuzhitu_beSelected_danwei" value = '<%=request.getParameter("zuzhitu_danwei").toString() %>'>
+	</div>
+	<div class="row">
+		<br/>
     	<br/>
+    	
         <div class="container kv-main">
-
-            <form enctype="multipart/form-data">
-                <input id="file-zh" class="file" type="file"  multiple data-min-file-count="1">
-                <br>
-                <button type="submit" class="btn btn-primary">保存到服务器</button>
-                <button type="reset" class="btn btn-default">重置</button>
+			
+            <form id="myform"  method="post" enctype="multipart/form-data">
+                <input id="fileObj" class="file" name = "fileObj" type="file"  multiple data-min-file-count="1">
             </form>
-            
-            
-            
+        </div>
+        <br/>
+		<div class="alert alert-warning hidden" id = "div_alert_PDF_File_NoBeSetted" >警告：还未选择本地PDF文件</div>
+		<div class="alert alert-warning hidden" id = "div_alert_NOT_PDF_File"        >警告：请选择PDF格式文件</div>	
+	
+	</div>
+
+	<div class="row">
+		<br/><br/><br/>
+		<a href="javascript:uploadFile();"  class="button button-block button-rounded button-primary button-large">下一步</a>
+		
+	
+	</div>
+    
         </div>
     </body>
 	<script>
 	//初始化按钮
-    $('#file-zh').fileinput({
+    $('#fileObj').fileinput({
         language: 'zh',
         //上传地址
         uploadUrl: '#',
@@ -108,5 +141,29 @@
         });
         */
     });
+
+
+function uploadFile(){
+	var file_name = document.all.fileObj.value;
+	
+
+	if (file_name == ""){
+		$("#div_alert_PDF_File_NoBeSetted").attr("class","alert alert-danger");
+		
+	} else if (getEx(file_name).toString().toLowerCase() != ".pdf") {
+		$("#div_alert_NOT_PDF_File").attr("class","alert alert-danger");
+	}else {
+		
+		document.all.myform.action="${pageContext.request.contextPath}/uploadFile/uploadZuZhiTuFile.do?zuzhitu_beSelected_danwei="+document.all.zuzhitu_beSelected_danwei.value;
+		document.all.myform.submit(); 
+	}
+	
+	
+}
+function getEx(file_name){
+	var result =/\.[^\.]+/.exec(file_name);
+	return result;
+}
+
 	</script>
 </html>
