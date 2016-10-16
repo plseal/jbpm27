@@ -6,9 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/buttons.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/icon.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
@@ -38,19 +41,42 @@ for(int i=0;i<ary_ana_labels.length;i++){
 
 // Create a PieChart object of size 650 x 370 pixels
 // Create a PieChart object of size 800 x 600 pixels
-PieChart c = new PieChart(1000, 600);
+// Create a PieChart object of size 1000 x 600 pixels
+PieChart c = new PieChart(1200, 800);
 
 //增大第一个参数 主图向右移动，增大第二个参数 主图向下移动，增大第三个参数 主图变大
 // Set the center of the pie at (210, 250) and the radius to 200 pixels
-c.setPieSize(380, 250, 200);
+c.setPieSize(450, 250, 200);
 
 //增大第一个参数  列表图向右移动,增大第二个参数 列表图向下移动
 // add a legend box where the top left corner is at (430, 60)
-c.addLegend(800, 60);
+c.addLegend(940, 60);
 c.setDefaultFonts("宋体","Bold");
 
 // modify the sector label format to show percentages only
 c.setLabelFormat("{label}:{percent}%");
+
+//Draw the pie in 3D with 20 pixels 3D depth
+c.set3D(20);
+
+//Use the side label layout method
+c.setLabelLayout(Chart.SideLayout);
+
+//Set the label box background color the same as the sector color, with glass effect, and with 5
+//pixels rounded corners
+TextBox t = c.setLabelStyle();
+t.setBackground(Chart.SameAsMainColor, Chart.Transparent, Chart.glassEffect());
+t.setRoundedCorners(5);
+
+//Set the border color of the sector the same color as the fill color. Set the line color of the
+//join line to black (0x0)
+c.setLineColor(Chart.SameAsMainColor, 0x000000);
+
+//Set the start angle to 135 degrees may improve layout when there are many small sectors at the
+//end of the data array (that is, data sorted in descending order). It is because this makes the
+//small sectors position near the horizontal axis, where the text label has the least tendency to
+//overlap. For data sorted in ascending order, a start angle of 45 degrees can be used instead.
+c.setStartAngle(135);
 
 // Set the pie data and the pie labels
 c.setData(data, labels);
@@ -125,37 +151,50 @@ function onload_(){
             
 }
 </script>
-<form method="post" id="myform">
-<div id="searchPanel" class="easyui-panel" style="width: 1000px;padding:2px 5px;">
+<!-- bootstrap 栅格容器 -->
+<form method="post" id="myform" class="form-inline" >
+    <div class="container">                 
+	    <input type="hidden" name="analysischart" value="${analysischart}" class="rectimyinput" style="width:110px;" maxlength=12>
+	
+		
+		<div class="form-group">
+		
+	       <select class="form-control" id = "analysisfrom_view" name = "analysisfrom_view" onchange="javascript:change_analysisfrom();">
+	        <option value="自查隐患信息" >自查隐患信息</option>
+	        <option value="上级检查组安全检查隐患信息" >上级检查组安全检查隐患信息</option>
+	        </select>
+	        <input type="hidden" name="analysisfrom" value="${analysisfrom}" class="rectimyinput" style="width:110px;" maxlength=12> 
+	        &nbsp;&nbsp;&nbsp;
+		
+		
+	        <select class="form-control" id = "analysistype_view" name = "analysistype_view" onchange="javascript:change_analysistype();">
+	        <option value="按单位（部门）统计" >按单位（部门）统计</option>
+	        <option value="按地点统计" >按地点统计</option>
+	        <option value="按隐患类型统计" >按隐患类型统计</option>
+	        <option value="按隐患等级统计" >按隐患等级统计</option>
+	        </select> 
+	        <input type="hidden" name="analysistype" value="${analysistype}" class="rectimyinput" style="width:110px;" maxlength=12> 
+	        &nbsp;&nbsp;&nbsp;
+		
+	        <select class="form-control" id = "analysischart_view" name = "analysischart_view" onchange="javascript:change_analysischart();">
+	        <option value="饼图" >饼图</option>
+	        <option value="柱形图" >柱形图</option>
+	        </select> 
+			&nbsp;&nbsp;&nbsp;
+	
+		</div>
+		
+		<button type="button" class="btn btn-primary" onclick="javascript:analysis_();">开始统计</button>
+	</div>
 
-                     
-        <select id = "analysisfrom_view" name = "analysisfrom_view" onchange="javascript:change_analysisfrom();">
-        <option value="自查隐患信息" >自查隐患信息</option>
-        <option value="上级检查组安全检查隐患信息" >上级检查组安全检查隐患信息</option>
-        </select>
-        <input type="hidden" name="analysisfrom" value="${analysisfrom}" class="rectimyinput" style="width:110px;" maxlength=12> 
-        &nbsp;&nbsp;&nbsp;
-        <select id = "analysistype_view" name = "analysistype_view" onchange="javascript:change_analysistype();">
-        <option value="按单位（部门）统计" >按单位（部门）统计</option>
-        <option value="按地点统计" >按地点统计</option>
-        <option value="按隐患类型统计" >按隐患类型统计</option>
-        <option value="按隐患等级统计" >按隐患等级统计</option>
-        </select> 
-        <input type="hidden" name="analysistype" value="${analysistype}" class="rectimyinput" style="width:110px;" maxlength=12> 
-        &nbsp;&nbsp;&nbsp;
-        <select id = "analysischart_view" name = "analysischart_view" onchange="javascript:change_analysischart();">
-        <option value="饼图" >饼图</option>
-        <option value="柱形图" >柱形图</option>
-        </select> 
-        <input type="hidden" name="analysischart" value="${analysischart}" class="rectimyinput" style="width:110px;" maxlength=12>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="javascript:analysis_();" class="easyui-linkbutton" style="padding:4px 0px;width:70pt" >统计</a>
-</div>
-<div style="margin:10px 0;"></div>
+
 <img src='${pageContext.request.contextPath}<%="/getchart.jsp?"+chart1URL%>' usemap="#map1" border="0">
+
+	
 <map name="map1"><%=imageMap1%></map>
+
 </form>
+
 </body>
 </html>
 

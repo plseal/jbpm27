@@ -53,6 +53,10 @@
 	<body onload="init_();">
 		<div class="navbar navbar-default" id="navbar">
 			<script type="text/javascript">
+				$(window).resize(function() {
+					document.getElementById("indexFrame").style.width=(document.documentElement.clientWidth-250)+'px';
+					document.getElementById("indexFrame").style.height=(document.documentElement.clientHeight-200)+'px';
+				});
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
 				function init_() {
 					goto_('${pageContext.request.contextPath}/listTask.jsp');
@@ -60,7 +64,7 @@
 				function goto_(strJsp){
 					
 					document.getElementById("indexFrame").src=strJsp;
-					document.getElementById("indexFrame").style.width=(document.documentElement.clientWidth-250)+'px';
+					
 					//alert(document.documentElement.clientHeight)
 					document.getElementById("indexFrame").style.height=(document.documentElement.clientHeight-200)+'px';
 				}

@@ -6,9 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/bootstrap/3.3.0/css/buttons.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/icon.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
@@ -18,6 +22,7 @@
 
 String str_ana_data = request.getAttribute("ana_data").toString();
 String str_ana_labels = request.getAttribute("ana_labels").toString();
+Integer int_ana_Width = Integer.parseInt(request.getAttribute("int_ana_Width").toString());
 
 String[] ary_ana_data = str_ana_data.split(",");
 String[] ary_ana_labels = str_ana_labels.split(",");
@@ -39,7 +44,7 @@ for(int i=0;i<ary_ana_labels.length;i++){
 int[] colors = {0x5588bb, 0x66bbbb, 0xaa6644, 0x99bb55, 0xee9944, 0x444466, 0xbb5555};
 
 // Create a XYChart object of size 600 x 360 pixels
-XYChart c = new XYChart(2000, 600);
+XYChart c = new XYChart(int_ana_Width, 600);
 
 // Set the plotarea at (70, 20) and of size 500 x 300 pixels, with transparent background and border
 // and light grey (0xcccccc) horizontal grid lines
@@ -47,7 +52,7 @@ XYChart c = new XYChart(2000, 600);
 //第二个参数：图往下移动
 //第三个参数：图变宽
 //第四个参数：图变宽
-c.setPlotArea(70, 120, 1800, 400, Chart.Transparent, -1, Chart.Transparent, 0xcccccc);
+c.setPlotArea(70, 120, int_ana_Width-200, 400, Chart.Transparent, -1, Chart.Transparent, 0xcccccc);
 
 // Set the x and y axis stems to transparent and the label font to 12pt Arial
 c.xAxis().setColors(Chart.Transparent);
@@ -140,38 +145,47 @@ function onload_(){
             
 }
 </script>
-<form method="post" id="myform">
-<div id="searchPanel" class="easyui-panel" style="width: 2000px;padding:2px 5px;">
+<!-- bootstrap 栅格容器 -->
+<form method="post" id="myform" class="form-inline" >
+    <div class="container">                 
+	    <input type="hidden" name="analysischart" value="${analysischart}" class="rectimyinput" style="width:110px;" maxlength=12>
+	
+		
+		<div class="form-group">
+		
+	       <select class="form-control " id = "analysisfrom_view" name = "analysisfrom_view" onchange="javascript:change_analysisfrom();">
+	        <option value="自查隐患信息" >自查隐患信息</option>
+	        <option value="上级检查组安全检查隐患信息" >上级检查组安全检查隐患信息</option>
+	        </select>
+	        <input type="hidden" name="analysisfrom" value="${analysisfrom}" class="rectimyinput" style="width:110px;" maxlength=12> 
+	        &nbsp;&nbsp;&nbsp;
+		
+		
+	        <select class="form-control" id = "analysistype_view" name = "analysistype_view" onchange="javascript:change_analysistype();">
+	        <option value="按单位（部门）统计" >按单位（部门）统计</option>
+	        <option value="按地点统计" >按地点统计</option>
+	        <option value="按隐患类型统计" >按隐患类型统计</option>
+	        <option value="按隐患等级统计" >按隐患等级统计</option>
+	        </select> 
+	        <input type="hidden" name="analysistype" value="${analysistype}" class="rectimyinput" style="width:110px;" maxlength=12> 
+	        &nbsp;&nbsp;&nbsp;
+		
+	        <select class="form-control" id = "analysischart_view" name = "analysischart_view" onchange="javascript:change_analysischart();">
+	        <option value="饼图" >饼图</option>
+	        <option value="柱形图" >柱形图</option>
+	        </select> 
+			&nbsp;&nbsp;&nbsp;
+	
+		</div>
+		
+		<button type="button" class="btn btn-primary" onclick="javascript:analysis_();">开始统计</button>
 
-                     
-        <select id = "analysisfrom_view" name = "analysisfrom_view" onchange="javascript:change_analysisfrom();">
-        <option value="自查隐患信息" >自查隐患信息</option>
-        <option value="上级检查组安全检查隐患信息" >上级检查组安全检查隐患信息</option>
-        </select>
-        <input type="hidden" name="analysisfrom" value="${analysisfrom}" class="rectimyinput" style="width:110px;" maxlength=12> 
-        &nbsp;&nbsp;&nbsp;
-        <select id = "analysistype_view" name = "analysistype_view" onchange="javascript:change_analysistype();">
-        <option value="按单位（部门）统计" >按单位（部门）统计</option>
-        <option value="按地点统计" >按地点统计</option>
-        <option value="按隐患类型统计" >按隐患类型统计</option>
-        <option value="按隐患等级统计" >按隐患等级统计</option>
-        </select> 
-        <input type="hidden" name="analysistype" value="${analysistype}" class="rectimyinput" style="width:110px;" maxlength=12> 
-        &nbsp;&nbsp;&nbsp;
-        <select id = "analysischart_view" name = "analysischart_view" onchange="javascript:change_analysischart();">
-        <option value="饼图" >饼图</option>
-        <option value="柱形图" >柱形图</option>
-        </select> 
-        <input type="hidden" name="analysischart" value="${analysischart}" class="rectimyinput" style="width:110px;" maxlength=12>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="javascript:analysis_();" class="easyui-linkbutton" style="padding:4px 0px;width:70pt" >统计</a>
-</div>
-<div style="margin:10px 0;"></div>
+	</div>
+		<img src='${pageContext.request.contextPath}<%="/getchart.jsp?"+chart1URL%>' usemap="#map1" border="0">
+		<map name="map1"><%=imageMap1%></map>
 
-<img src='${pageContext.request.contextPath}<%="/getchart.jsp?"+chart1URL%>' usemap="#map1" border="0">
-<map name="map1"><%=imageMap1%></map>
 </form>
+
 </body>
 </html>
 

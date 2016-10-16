@@ -51,8 +51,10 @@ indexS2.jsp
 		<div class="alert alert-warning hidden" id = "div_alert_PDF_File_NoBeSetted" >警告：还未选择本地PDF文件</div>
 		<div class="alert alert-warning hidden" id = "div_alert_NOT_PDF_File"        >警告：请选择PDF格式文件</div>	
 	
+	
+	<div class="col-md-3" >
+		<a href="${pageContext.request.contextPath}/modelfile\01.guide\01.change_word_to_PDF.pdf" target="_blank" class="btn btn-primary btn-lg active" role="button">如何转换WORD文档到PDF文件</a>
 	</div>
-
 	<div class="row">
 		<br/><br/><br/>
 		<a href="javascript:uploadFile();"  class="button button-block button-rounded button-primary button-large">下一步</a>
