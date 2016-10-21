@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-10-21 23:56:18
+Date: 2016-10-22 00:09:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,7 +39,7 @@ INSERT INTO `t_fixed` VALUES ('cityofficer', '市局', '01');
 INSERT INTO `t_fixed` VALUES ('geofficer', '综合办', '01');
 INSERT INTO `t_fixed` VALUES ('leader', '部门负责人', '01');
 INSERT INTO `t_fixed` VALUES ('manager', '分管副经理', '01');
-INSERT INTO `t_fixed` VALUES ('peisongku', '20161021231458.pdf', '04');
+INSERT INTO `t_fixed` VALUES ('peisongku', '01.peisongku.pdf', '04');
 INSERT INTO `t_fixed` VALUES ('rectitype_option_car', '车辆隐患', '03');
 INSERT INTO `t_fixed` VALUES ('rectitype_option_electric', '电气隐患', '03');
 INSERT INTO `t_fixed` VALUES ('rectitype_option_fire_control', '消防隐患', '03');
@@ -47,8 +47,8 @@ INSERT INTO `t_fixed` VALUES ('rectitype_option_mark', '标识隐患', '03');
 INSERT INTO `t_fixed` VALUES ('rectitype_option_special_equipment', '特种设备', '03');
 INSERT INTO `t_fixed` VALUES ('safetymanager', '安管员', '01');
 INSERT INTO `t_fixed` VALUES ('securitycheck', '01modelfile.pdf', '05');
-INSERT INTO `t_fixed` VALUES ('shixianju', '20161021231509.pdf', '04');
-INSERT INTO `t_fixed` VALUES ('tongyong', '20161021231519.pdf', '04');
+INSERT INTO `t_fixed` VALUES ('shixianju', '02.shixianju.pdf', '04');
+INSERT INTO `t_fixed` VALUES ('tongyong', '03.tongyong.pdf', '04');
 INSERT INTO `t_fixed` VALUES ('townofficer', '县局主要负责人', '01');
 INSERT INTO `t_fixed` VALUES ('yuangong', '员工', '01');
 SET FOREIGN_KEY_CHECKS=1;
