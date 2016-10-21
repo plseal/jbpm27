@@ -1,4 +1,4 @@
-/*
+﻿/*
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
@@ -32,7 +32,7 @@ CREATE TABLE `t_danwei` (
 -- ----------------------------
 -- Records of t_danwei
 -- ----------------------------
-INSERT INTO `t_danwei` VALUES ('任城区局', '济宁市任城区烟草专卖局（营销部）', '06', '02', '任城烟草', '20161012081846.pdf');
+INSERT INTO `t_danwei` VALUES ('任城区局', '济宁市任城区烟草专卖局（营销部）', '06', '02', '任城烟草', 'rencheng.pdf');
 INSERT INTO `t_danwei` VALUES ('兖州区局', '济宁市兖州区兖州专卖局（分公司）', '10', '03', '兖州烟草', 'yanzhou.pdf');
 INSERT INTO `t_danwei` VALUES ('嘉祥县局', '济宁烟草嘉祥县局（营销部）', '02', '10', '嘉祥烟草', 'jiaxiang.pdf');
 INSERT INTO `t_danwei` VALUES ('市局', '市局公司', '01', '01', null, null);

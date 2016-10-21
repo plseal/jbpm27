@@ -66,6 +66,7 @@
 					document.getElementById("indexFrame").src=strJsp;
 					
 					//alert(document.documentElement.clientHeight)
+					document.getElementById("indexFrame").style.width=(document.documentElement.clientWidth-250)+'px';
 					document.getElementById("indexFrame").style.height=(document.documentElement.clientHeight-200)+'px';
 				}
 				
@@ -269,13 +270,13 @@
 									</a>
 								</li>
 								<li>
-									<a href="javascript:goto_('${pageContext.request.contextPath}/standardpost/02.shixianju.htm');">
+									<a href="javascript:goto_('${pageContext.request.contextPath}/admin/to_standardpost.do');">
 										
 										<span > 岗位达标标准 </span>
 									</a>
 								</li>
 								<li>
-									<a href="javascript:goto_('${pageContext.request.contextPath}/error-jianshezhong.jsp');">
+									<a href="javascript:goto_('${pageContext.request.contextPath}/admin/to_securityCheck.do');">
 										
 										<span > 安全管理考核 </span>
 									</a>

@@ -2,6 +2,7 @@ package com.lin.controller;
 
 import com.lin.entity.*;
 import com.lin.service.DanweiService;
+import com.lin.service.FixedService;
 import com.lin.service.MyJbpmService;
 import com.lin.service.RectiSearchService;
 import com.lin.service.UserService;
@@ -56,6 +57,9 @@ public class AdminController extends HttpServlet{
 	@Resource(name="myJbpmService")
 	private MyJbpmService myJbpmService;//任务管理
 	
+	@Resource(name="fixedService")
+	private FixedService fixedService;
+	
 	@Resource(name="executionService")
 	private ExecutionService executionService;//-流程实例管理
 	
@@ -65,7 +69,19 @@ public class AdminController extends HttpServlet{
 	public AdminController()
 	{
 	}
-
+	@RequestMapping("to_securityCheck")
+	public String to_securityCheck(HttpServletRequest request){
+		logger.info("["+this.getClass().getName()+"][to_securityCheck][start]");
+		
+		//05为"安全管理考核"专用
+		List<FixedEntity> listFixed = fixedService.getAllByUsed("05");
+		for(int i=0;i<listFixed.size();i++){
+			logger.info("["+this.getClass().getName()+"][to_securityCheck]["+"URL"+listFixed.get(i).getId()+"]"+listFixed.get(i).getName());
+			request.setAttribute("URL"+listFixed.get(i).getId(), listFixed.get(i).getName());;
+		}
+		logger.info("["+this.getClass().getName()+"][to_securityCheck][end]--goto[security-check/index.jsp]");
+		return "security-check/index";
+	}
 	@RequestMapping("to_shiju")
 	public String to_shiju(HttpServletRequest request){
 		logger.info("["+this.getClass().getName()+"][to_shiju][start]");
@@ -77,6 +93,20 @@ public class AdminController extends HttpServlet{
 		}
 		logger.info("["+this.getClass().getName()+"][to_shiju][end]--goto[zuzhitu/shiju/index.jsp]");
 		return "zuzhitu/shiju/index";
+	}
+	
+	@RequestMapping("to_standardpost")
+	public String to_standardpost(HttpServletRequest request){
+		logger.info("["+this.getClass().getName()+"][to_standardpost][start]");
+		
+		//04为岗位标准专用
+		List<FixedEntity> listFixed = fixedService.getAllByUsed("04");
+		for(int i=0;i<listFixed.size();i++){
+			logger.info("["+this.getClass().getName()+"][to_standardpost]["+"URL"+listFixed.get(i).getId()+"]"+listFixed.get(i).getName());
+			request.setAttribute("URL"+listFixed.get(i).getId(), listFixed.get(i).getName());;
+		}
+		logger.info("["+this.getClass().getName()+"][to_standardpost][end]--goto[standardpost/index.jsp]");
+		return "standardpost/index";
 	}
 	
 	

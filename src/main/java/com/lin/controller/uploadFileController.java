@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lin.entity.DanweiEntity;
+import com.lin.entity.FixedEntity;
 import com.lin.entity.RectiNewEntity;
 import com.lin.service.DanweiService;
+import com.lin.service.FixedService;
 import com.lin.service.RectiNewService;
 @Controller
 @RequestMapping("uploadFile")
@@ -31,9 +33,99 @@ public class uploadFileController
 	@Resource(name="danweiService")
 	private DanweiService danweiService;
 	
+	@Resource(name="fixedService")
+	private FixedService fixedService;
+	
 	public uploadFileController()
 	{
 	}
+	@RequestMapping("uploadSecurityCheckFile")
+	public String uploadSecurityCheckFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
+		logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][start]1");
+		if (fileObj != null){
+			if (fileObj.getSize() == 0) {
+				return "addFileFailed";
+			}
+			
+			logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][SaveFile---strFile.Size]:"+fileObj.getSize());
+						
+			String strTruePath = "";
+			
+			//上传到岗位达标标准用文件夹
+			strTruePath = (new StringBuilder(String.valueOf(request.getRealPath("/")))).append("security-check/").toString();
+			//更新数据库
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			String todayyyyMMddHHmmss = df.format(date);
+			String filename = todayyyyMMddHHmmss + ".pdf";
+			FixedEntity entity = new FixedEntity();
+			entity.setId("securitycheck");
+			entity.setName(filename);
+			entity.setUsed("05");
+			 
+			fixedService.updatePdfURL(entity);
+						
+			
+			logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][SaveFile---strTruePath]:"+strTruePath);
+			//System.out.println((new StringBuilder("SaveFile---:")).append(strTruePath).toString());
+			
+			logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][SaveFile---strFile.Name]:"+filename);
+			SaveFileFromInputStream(fileObj.getInputStream(), strTruePath, filename);
+			request.setAttribute("UPLOADED_FILE_NAME", filename);
+		}
+		
+		logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][goto][security-check/indexS3.jsp]");
+		logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][end]");
+		return "security-check/indexS3";
+	}
+	
+	@RequestMapping("uploadStandardPostFile")
+	public String uploadStandardPostFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
+		logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][start]1");
+		if (fileObj != null){
+			if (fileObj.getSize() == 0) {
+				return "addFileFailed";
+			}
+			String tmp_standardPost_beSelected_post = request.getParameter("standardPost_beSelected_post").toString();
+			logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][SaveFile---strFile.Size]:"+fileObj.getSize());
+			logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][standardPost_beSelected_post]:"+tmp_standardPost_beSelected_post);
+			
+			String strTruePath = "";
+			
+			//上传到岗位达标标准用文件夹
+			strTruePath = (new StringBuilder(String.valueOf(request.getRealPath("/")))).append("standardpost/").toString();
+			//更新数据库
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			String todayyyyMMddHHmmss = df.format(date);
+			String filename = todayyyyMMddHHmmss + ".pdf";
+			FixedEntity entity = new FixedEntity();
+			entity.setName(filename);
+			entity.setUsed("04");
+			if ("配送库岗位".equals(tmp_standardPost_beSelected_post)) {
+				entity.setId("peisongku");
+			} else if ("市县局公司".equals(tmp_standardPost_beSelected_post)) {
+				entity.setId("shixianju");
+			} else if ("通用岗位".equals(tmp_standardPost_beSelected_post)) {
+				entity.setId("tongyong");
+			}
+			 
+			fixedService.updatePdfURL(entity);
+						
+			
+			logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][SaveFile---strTruePath]:"+strTruePath);
+			//System.out.println((new StringBuilder("SaveFile---:")).append(strTruePath).toString());
+			
+			logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][SaveFile---strFile.Name]:"+filename);
+			SaveFileFromInputStream(fileObj.getInputStream(), strTruePath, filename);
+			request.setAttribute("UPLOADED_FILE_NAME", filename);
+		}
+		
+		logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][goto][standardpost/indexS3.jsp]");
+		logger.info("["+this.getClass().getName()+"][uploadStandardPostFile][end]");
+		return "standardpost/indexS3";
+	}
+	
 	@RequestMapping("uploadZuZhiTuFile")
 	public String uploadZuZhiTuFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
 		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][start]1");

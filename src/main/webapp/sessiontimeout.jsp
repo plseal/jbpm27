@@ -4,7 +4,8 @@
 
 if(session.getAttribute("id")==null) {
 	
-	response.sendRedirect("../error-sessiontimeout.jsp");
+	response.sendRedirect(request.getContextPath()+"/error-sessiontimeout.jsp");
+	System.out.println(request.getContextPath());
 }
 %>
 
