@@ -57,7 +57,9 @@ div.banner {
 </head>
 
 <body class="pageView" bgcolor="#FFFFFF" style="margin: 0px">
-	
+<% 
+String id      = (String)session.getAttribute("id");
+%>
 <script type="text/javascript" language="javascript">
 
 function clickStandardpost(strVal) {
@@ -87,10 +89,17 @@ $(window).resize(function() {
 			<button type="button" class="btn btn-default btn-lg btn-block" onclick="clickStandardpost('${pageContext.request.contextPath}/standardpost/${URLtongyong}');">通用作业</button>
 		</div>
 	</div>
+  <%
+  //狄雷鸣可以修改
+  if (id.equals("狄雷鸣")) {
+  %>
 	<div class="row">
 	       <br/>
 		  <a href="${pageContext.request.contextPath}/standardpost/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新岗位标准</a>
 	</div>
+  <%
+  }
+  %>
 	<br/>
 	
 <div class="responsive-video">

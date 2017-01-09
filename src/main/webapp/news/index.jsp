@@ -63,18 +63,25 @@ $(function(){
 </script>
 </head>
 <body>
+<% 
+String id      = (String)session.getAttribute("id");
+%>
 <div class="container">
 	<div class="row">
 		内部资讯
 	</div>
+  <%
+  //狄雷鸣可以修改
+  if (id.equals("狄雷鸣")) {
+  %>
 	<div class="row">
 		  <a href="${pageContext.request.contextPath}/news/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新内部资讯</a>
 	</div>
+  <%
+  }
+  %>
 	<div class="row">
 	    <form method="post" id="myform">
-	   
-	 
-	
 			<table id="listTable" ></table>
 		</form>
 	</div>

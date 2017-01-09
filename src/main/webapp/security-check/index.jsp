@@ -56,16 +56,25 @@ div.banner {
 </style>
 </head>
 
-<body class="pageView" bgcolor="#FFFFFF" style="margin: 0px" onload="my_load()">
-
+<body class="pageView" bgcolor="#FFFFFF" style="margin: 0px;height: 80%;" >
+<% 
+String id      = (String)session.getAttribute("id");
+%>
 <form method="post" id="myform"  >
 <!-- bootstrap 栅格容器 -->
 <div class="container">
 	<!-- bootstrap 栅格容器  row start-->
+  <%
+  //狄雷鸣可以修改
+  if (id.equals("狄雷鸣")) {
+  %>
 	<div class="row">
 	       <br/>
 		  <a href="${pageContext.request.contextPath}/security-check/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新安全管理考核</a>
 	</div>
+  <%
+  }
+  %>
 	<br/>
 	
 	<div class="responsive-video">

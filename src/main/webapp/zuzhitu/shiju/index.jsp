@@ -129,7 +129,9 @@ div.banner {
 </head>
 
 <body class="pageView" bgcolor="#FFFFFF" style="margin: 0px">
-
+<% 
+String id      = (String)session.getAttribute("id");
+%>
 <script type="text/javascript" language="javascript">
 // Displays the banner prompt to install Silverlight
 if (parent.slSupported && !parent.slInstalled)
@@ -172,10 +174,18 @@ if (parent.slSupported && !parent.slInstalled)
 	
 		
 	</div>
+  <%
+  //狄雷鸣可以修改
+  if (id.equals("狄雷鸣")) {
+  %>
 	<div class="row">
 	       <br/>
 		  <a href="${pageContext.request.contextPath}/zuzhitu/shiju/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新组织图</a>
 	</div>
+  <%
+  }
+  %>
+
 
 </DIV>
 
