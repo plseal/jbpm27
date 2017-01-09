@@ -147,12 +147,12 @@ standardpost_indexS2.jsp
 
 function uploadFile(){
 	var file_name = document.all.fileObj.value;
-	
-
+	//alert(file_name.toString());
+	//alert(file_name.toString().toLowerCase().slice(-4));
 	if (file_name == ""){
 		$("#div_alert_PDF_File_NoBeSetted").attr("class","alert alert-danger");
 		
-	} else if (getEx(file_name).toString().toLowerCase() != ".pdf") {
+	} else if (file_name.toString().toLowerCase().slice(-4) != ".pdf") {
 		$("#div_alert_NOT_PDF_File").attr("class","alert alert-danger");
 	}else {
 		
@@ -162,10 +162,7 @@ function uploadFile(){
 	
 	
 }
-function getEx(file_name){
-	var result =/\.[^\.]+/.exec(file_name);
-	return result;
-}
+
 
 	</script>
 </html>
