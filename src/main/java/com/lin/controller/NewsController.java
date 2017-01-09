@@ -53,6 +53,19 @@ public class NewsController
 		return list;
 	}
 	
-	
+
+	@RequestMapping("news_delete")
+	public String news_delete(HttpServletRequest request){
+		logger.info("["+this.getClass().getName()+"][news_delete][start]");
+		
+		NewsEntity entity = new NewsEntity();
+		
+		entity.setId(request.getParameter("id"));
+		
+		newsService.delete(entity);
+
+		logger.info("["+this.getClass().getName()+"][news_delete][end]--goto[news/indexS2_Del.jsp]");
+		return "news/indexS2_Del";
+	}
 
 }

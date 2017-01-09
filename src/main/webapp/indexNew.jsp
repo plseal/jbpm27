@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jquery-easyui-1.4.3/themes/icon.css" />
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/logo.ico" media="screen" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 		<!-- basic styles -->
@@ -314,7 +315,7 @@
 						</li>
 						
 						<li>
-							<a href="javascript:goto_('${pageContext.request.contextPath}/news.jsp');">
+							<a href="javascript:goto_('${pageContext.request.contextPath}/news/index.jsp');">
 								
 								<span class="menu-text"> 内部资讯 </span>
 							</a>

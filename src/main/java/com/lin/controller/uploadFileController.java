@@ -18,9 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lin.entity.DanweiEntity;
 import com.lin.entity.FixedEntity;
+import com.lin.entity.NewsEntity;
 import com.lin.entity.RectiNewEntity;
 import com.lin.service.DanweiService;
 import com.lin.service.FixedService;
+import com.lin.service.NewsService;
 import com.lin.service.RectiNewService;
 @Controller
 @RequestMapping("uploadFile")
@@ -32,6 +34,10 @@ public class uploadFileController
 	
 	@Resource(name="danweiService")
 	private DanweiService danweiService;
+
+	
+	@Resource(name="newsService")
+	private NewsService newsService;
 	
 	@Resource(name="fixedService")
 	private FixedService fixedService;
@@ -39,6 +45,57 @@ public class uploadFileController
 	public uploadFileController()
 	{
 	}
+	
+	@RequestMapping("uploadNews")
+	public String uploadNews(MultipartFile fileObj, HttpServletRequest request) throws Exception{
+		logger.info("["+this.getClass().getName()+"][uploadNews][start]");
+		if (fileObj != null){
+			if (fileObj.getSize() == 0) {
+				return "addFileFailed";
+			}
+			
+			logger.info("["+this.getClass().getName()+"][uploadNews][SaveFile---strFile.Size]:"+fileObj.getSize());
+			logger.info("["+this.getClass().getName()+"][uploadNews][news_beSelected_div]:"+request.getParameter("news_beSelected_div"));
+			
+			String strTruePath = "";
+			
+			//上传到news用文件夹
+			strTruePath = (new StringBuilder(String.valueOf(request.getRealPath("/")))).append("news/").toString();
+			//更新数据库
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMdd");
+			String todayyyyMMddHHmmss = df.format(date);
+			String todayyyyMMdd = df2.format(date);
+			String filename = todayyyyMMddHHmmss + ".pdf";
+			NewsEntity entity = new NewsEntity();
+			entity.setId(todayyyyMMddHHmmss);
+			entity.setFabushijian(todayyyyMMdd);
+			entity.setXinxilaiyuan(request.getSession().getAttribute("user_danwei").toString());
+			entity.setZhuangaoren(request.getSession().getAttribute("id").toString());
+			entity.setGuanzhudu("56");
+			//title设置的时候，先把文件名小写化，再去除".pdf"
+			entity.setTitle(fileObj.getOriginalFilename().toLowerCase().replace(".pdf", ""));
+			entity.setUrl(filename);
+			
+			
+			newsService.insert(entity);
+						
+			
+			logger.info("["+this.getClass().getName()+"][uploadNews][SaveFile---strTruePath]:"+strTruePath);
+			//System.out.println((new StringBuilder("SaveFile---:")).append(strTruePath).toString());
+			
+			logger.info("["+this.getClass().getName()+"][uploadNews][SaveFile---strFile.Name]:"+filename);
+			SaveFileFromInputStream(fileObj.getInputStream(), strTruePath, filename);
+			request.setAttribute("UPLOADED_FILE_NAME", filename);
+		}
+		
+		logger.info("["+this.getClass().getName()+"][uploadNews][goto][news/indexS3.jsp]");
+		logger.info("["+this.getClass().getName()+"][uploadNews][end]");
+		return "news/indexS3";
+	}
+	
+	
 	@RequestMapping("uploadSecurityCheckFile")
 	public String uploadSecurityCheckFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
 		logger.info("["+this.getClass().getName()+"][uploadSecurityCheckFile][start]1");
@@ -128,7 +185,7 @@ public class uploadFileController
 	
 	@RequestMapping("uploadZuZhiTuFile")
 	public String uploadZuZhiTuFile(MultipartFile fileObj, HttpServletRequest request) throws Exception{
-		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][start]1");
+		logger.info("["+this.getClass().getName()+"][uploadZuZhiTuFile][start]");
 		if (fileObj != null){
 			if (fileObj.getSize() == 0) {
 				return "addFileFailed";

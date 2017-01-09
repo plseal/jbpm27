@@ -64,7 +64,7 @@
 		<value>root</value>
 	</property>
 	<property name="password">
-		<value>5891558</value>
+		<value>123456</value>
 	</property>
 </bean>
 <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">

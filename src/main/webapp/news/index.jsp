@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include  file="sessiontimeout.jsp"%>
+<%@include  file="../sessiontimeout.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,13 +25,23 @@ $(function(){
 			{field:'xinxilaiyuan',           title:'信息来源 ',width:0,align:'left',hidden:'true'},
 			{field:'title',            title:'详细内容 ',width:0,align:'left',
 	            formatter:function(value,rec){  
-	                var detail = "  <a class='editcls' onclick='#'"  
-		            + "color=blue href='./"+rec.title+".htm'>"+rec.title+"</a>";
+	            	var detail = ""
+	            	//alert(rec.url);
+	            	if (rec.url == null) {
+	            		detail = "  <a class='editcls' onclick='#'"  
+	    		            + "color=blue href='./"+rec.title+".htm'>"+rec.title+"</a>";
+	            	} else {
+	            		//pdf
+	            		detail = "  <a class='editcls' onclick='#'"  
+	    		            + "color=blue href='./"+rec.url+"'>"+rec.title+"</a>";
+	            	}
+	                
 		            
 	            	return detail ;
 	            } 	
 			
-			}
+			},
+			{field:'url',           title:'url ',width:0,align:'left',hidden:'true'}
 	        /*
 			,{field:'opt',            title:'操作',width:0,align:'center',  
 	            formatter:function(value,rec){  
@@ -58,7 +68,7 @@ $(function(){
 		内部资讯
 	</div>
 	<div class="row">
-		  <a href="${pageContext.request.contextPath}/zuzhitu/shiju/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新内部资讯</a>
+		  <a href="${pageContext.request.contextPath}/news/indexS1.jsp" class="button button-block button-rounded button-primary button-large">更新内部资讯</a>
 	</div>
 	<div class="row">
 	    <form method="post" id="myform">
