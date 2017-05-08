@@ -7,7 +7,7 @@
 
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/jbpm?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/jbpm?useUnicode=true&amp;characterEncoding=UTF-8</property>
 		<property name="connection.useUnicode">true</property>
   		<property name="connection.characterEncoding">utf-8</property>
 		  <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>  
@@ -23,6 +23,10 @@
 		<property name="hibernate.dbcp.validationQuery">select 1</property> 
 		<property name="hibernate.dbcp.testOnBorrow">true</property> 
 		<property name="hibernate.dbcp.testOnReturn">true</property> 
+		
+		<property name="connection.autoReconnect">true</property>
+		<property name="connection.autoReconnectForPools">true</property>
+		<property name="connection.is-connection-validation-required">true</property>
 		
 		<mapping resource="jbpm.repository.hbm.xml" />
 		<mapping resource="jbpm.execution.hbm.xml" />
