@@ -19,7 +19,11 @@
 		<property name="formate_sql">true</property>
 		<property name="hibernate.jdbc.batch_size">20</property>
 
-
+		<!-- optional query to validate pooled connections:--> 
+		<property name="hibernate.dbcp.validationQuery">select 1</property> 
+		<property name="hibernate.dbcp.testOnBorrow">true</property> 
+		<property name="hibernate.dbcp.testOnReturn">true</property> 
+		
 		<mapping resource="jbpm.repository.hbm.xml" />
 		<mapping resource="jbpm.execution.hbm.xml" />
 		<mapping resource="jbpm.history.hbm.xml" />
