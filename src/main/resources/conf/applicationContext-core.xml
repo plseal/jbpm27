@@ -66,6 +66,7 @@
 	<property name="password">
 		<value>123456</value>
 	</property>
+	 <property name="validationQuery" value="select 0" />
 
 </bean>
 <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
